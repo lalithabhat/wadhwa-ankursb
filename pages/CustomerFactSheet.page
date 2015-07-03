@@ -1,0 +1,64 @@
+<apex:page standardController="Opportunity" showHeader="false" applyBodyTag="false" renderAs="pdf">
+<head>
+<style>
+table {
+    width:100%;
+    border:1px solid #CCC;
+}
+td {
+    border:none;
+}
+span {
+    font-weight:bold;
+}
+</style>
+
+</head>
+     <table cellspacing="10" >
+     <tr><td  align="LEFT"><apex:image url="{!$Resource.Wadhwalogo}"  height="80"/></td>
+     <td align="right">Address: Plot No. - C - 59, 3rd Floor, Platina, G Block, BKC, Bandra East, Mumbai, Maharashtra 400051
+     Phone:022 6730 8400</td></tr>
+     </table>
+     <table>
+      <td colspan="2" align="center"><h3>CUSTOMER FACT SHEET</h3>.
+      <span style="text-align:right;margin-bottom:0em;"><apex:outputText value="{0,date,MMMM dd, yyyy}">
+      <apex:param value="{!TODAY()}" />
+      </apex:outputText></span></td>
+      </table>
+      <p></p>
+     <table>
+        <tr><td colspan="2" > <h2>Personal Information</h2></td></tr>
+        <tr ><td>Name :</td><td><apex:outputField id="account" value="{!Opportunity.Account.Name}"/></td>
+        <td>Name :</td><td ><apex:outputField value="{!Opportunity.Account.Name}"/></td>
+        </tr>
+        <tr><td>Phone :</td><td ><apex:outputField id="type" value="{!Opportunity.Account.Phone}"/></td>
+        <td>Phone :</td><td ><apex:outputField value="{!Opportunity.Account.Phone}"/></td>
+        </tr>
+        <tr><td>City :</td><td ><apex:outputField id="city" value="{!Opportunity.Account.BillingCity}"/></td>
+        <td>City :</td><td ><apex:outputField value="{!Opportunity.Account.BillingCity}"/></td></tr>
+     </table> 
+     
+     <table >
+     <tr><td colspan="2" > <h2>Enquiry Details</h2></td></tr>
+        <tr style ="border-collapse:collapse;"><td ><span >Name :</span></td><td ><apex:outputField id="amount" value="{!Opportunity.amount}"/></td></tr>
+        <tr><td ><span >Project :</span></td><td ><apex:outputField id="project" value="{!Opportunity.ProjectName__c}"/></td></tr>
+        <tr><td ><span >Area :</span></td><td ><apex:outputField id="Area" value="{!Opportunity.Area__c}"/></td></tr>
+        <tr><td ><span >LeadSource :</span></td>
+        <td ><apex:outputLabel value="{!IF(Opportunity.LeadSource == null,'Please Select a Value From Below. ',Opportunity.LeadSource)}" style=" font-style: italic;"/></td></tr>
+        <apex:form rendered="{!ISNULL(Opportunity.LeadSource)}">
+        <apex:inputField value="{!Opportunity.LeadSource}" rendered="{!ISNULL(Opportunity.LeadSource)}"/>
+        </apex:form>     
+     </table>  
+     <h2>Activities</h2>
+     <apex:repeat value="{!Opportunity.Tasks }" var="item">
+     <table>
+        <tr><td colspan="2">Activity</td></tr>
+        <tr><td><span >Name :</span></td><td ><apex:outputField value="{!Opportunity.Name}"/></td></tr>
+        <tr><td><span >Date :</span></td><td ><apex:outputField value="{!item.ActivityDate}"/></td></tr>
+        <tr><td><span >Subject :</span></td><td ><apex:outputField value="{!item.Subject}"/><br/></td></tr>
+        <tr><td><span >Priority :</span></td><td ><apex:outputField value="{!item.Priority}"/><br/></td></tr>
+        <tr><td><span >Status :</span></td><td ><apex:outputField value="{!item.Status}"/><br/></td></tr>
+        <tr><td><span >Assignedto: </span></td><td ><apex:outputField value="{!item.OwnerId}"/></td></tr><br/>
+    </table>
+     </apex:repeat>
+</apex:page>

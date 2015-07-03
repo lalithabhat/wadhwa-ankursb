@@ -1,0 +1,3 @@
+<apex:page standardController="account" renderAs="PDF">
+<c:attachment />
+</apex:page>

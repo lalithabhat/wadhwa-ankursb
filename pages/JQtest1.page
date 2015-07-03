@@ -1,0 +1,44 @@
+<apex:page Controller="JQtest1Controller">
+<apex:includescript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/> 
+ <script>
+   j$ = jQuery.noConflict();
+   j$(document).ready(function() {
+           alert('on ready function:');
+        j$( "[id$='createContact']" ).click(function() {
+            alert('create contact on click'); 
+            console.log('firstName:' + j$("[id$='firstNameA']").val());
+            console.log('lastName:' + j$("[id$='lastNameA']").val());
+            
+           JQtest1Controller.createContact(j$("[id$='firstNameA']").val(),j$("[id$='lastNameA']").val(),handleContactCreate);
+        });
+  });
+
+  function handleContactCreate(result,event) {
+         if(event.type == 'exception') {
+              alert(event.message);
+          } else {
+            alert('A contact was created with the ID: '+result);
+          }
+  }
+ 
+ </script>
+    <div>
+        <p>First Name</p>
+        <input name="Name" type="text" id="firstName"> </input>
+        <br></br> 
+    </div>
+    <div>
+        <p>Last Name</p>
+        <input name="Name" type="text" id="lastName"> </input>
+        <br></br>
+    </div>
+    <button type="button" id="createContact">Create Contact</button>
+    <div>
+        
+    </div>
+    <apex:form >
+    	<apex:inputtext id="firstNameA" label="First Name"  value="{!firstName}" ></apex:inputtext>
+    	<apex:inputtext id="lastNameA" label="Last Name" value="{!lastName}"></apex:inputtext>
+    	<apex:commandbutton id="createContact" value="click me to add new contact"></apex:commandbutton>
+    </apex:form>
+</apex:page>
